@@ -53,13 +53,19 @@ subprojects {
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 }
 
-project(":api"){
+project(":core"){
     dependencies {
+    }
+}
+project(":advanced"){
+    dependencies {
+        api project(":core")
     }
 }
 project(":wpi"){
     dependencies {
-        api project(":api")
+        api project(":core")
+        api project(":advanced")
     }
 }
 wrapper {

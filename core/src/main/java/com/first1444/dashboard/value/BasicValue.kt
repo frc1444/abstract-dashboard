@@ -5,6 +5,10 @@ class BasicValue(
         private val type: BasicValueType,
         private val value: Any
 ) {
+    @get:JvmName("getTheHi")
+    val hi: Int
+        get() = 3
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -22,6 +26,7 @@ class BasicValue(
         result = 31 * result + value.hashCode()
         return result
     }
+    @Suppress("UNCHECKED_CAST")
     fun applyTo(setter: ValueSetter): Boolean{
         return when(type){
             BasicValueType.BOOLEAN -> setter.setBoolean(value as Boolean)

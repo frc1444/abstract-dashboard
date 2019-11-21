@@ -1,19 +1,7 @@
 package com.first1444.dashboard.value
 
-interface BasicEntry {
-
-    fun delete()
-
-    val name: String
-    var persistent: Boolean
-
-    val setter: ValueSetter
-    val strictSetter: ValueSetter
-    val forceSetter: ValueSetter
-    val defaultSetter: ValueSetter
-    val strictDefaultSetter: ValueSetter
-
-    fun getValue(): BasicValue
+interface ValueGetter {
+    val value: BasicValue
 
     fun getBoolean(defaultValue: Boolean): Boolean
 
