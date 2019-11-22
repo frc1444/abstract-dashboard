@@ -1,14 +1,16 @@
-package com.first1444.dashboard.shuffleboard
+package com.first1444.dashboard.shuffleboard.implementations
 
 import com.first1444.dashboard.BasicDashboard
+import com.first1444.dashboard.shuffleboard.EventImportance
+import com.first1444.dashboard.shuffleboard.RecordingController
 import com.first1444.dashboard.value.BasicEntry
 
 
 class DefaultRecordingController
 /**
- * @param dashboard The root dashboard
+ * @param rootDashboard The root dashboard
  */
-(dashboard: BasicDashboard) : RecordingController {
+(rootDashboard: BasicDashboard) : RecordingController {
 
     companion object {
         private const val RECORDING_TABLE_NAME = "/Shuffleboard/.recording/"
@@ -17,9 +19,9 @@ class DefaultRecordingController
         private const val EVENT_MARKER_TABLE_NAME = RECORDING_TABLE_NAME + "events"
     }
 
-    private val recordingControlEntry: BasicEntry = dashboard[RECORDING_CONTROL_KEY]
-    private val recordingFileNameFormatEntry: BasicEntry = dashboard[RECORDING_FILE_NAME_FORMAT_KEY]
-    private val eventsTable: BasicDashboard = dashboard.getSubDashboard(EVENT_MARKER_TABLE_NAME)
+    private val recordingControlEntry: BasicEntry = rootDashboard[RECORDING_CONTROL_KEY]
+    private val recordingFileNameFormatEntry: BasicEntry = rootDashboard[RECORDING_FILE_NAME_FORMAT_KEY]
+    private val eventsTable: BasicDashboard = rootDashboard.getSubDashboard(EVENT_MARKER_TABLE_NAME)
 
     override fun startRecording() {
         recordingControlEntry.strictSetter.setBoolean(true)

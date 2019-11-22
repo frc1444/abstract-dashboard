@@ -6,8 +6,4 @@ interface Shuffleboard {
     fun selectTab(index: Int)
     fun selectTab(title: String)
 
-    /**
-     * Gets the tab
-     */
-    operator fun get(title: String): ShuffleboardContainer
 }

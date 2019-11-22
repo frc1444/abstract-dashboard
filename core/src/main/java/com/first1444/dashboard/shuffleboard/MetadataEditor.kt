@@ -2,6 +2,7 @@ package com.first1444.dashboard.shuffleboard
 
 import com.first1444.dashboard.BasicDashboard
 
+@FunctionalInterface
 interface MetadataEditor {
     fun editMetadata(metadataDashboard: BasicDashboard)
     companion object {
