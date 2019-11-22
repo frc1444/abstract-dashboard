@@ -16,4 +16,4 @@ include 'services:webservice'
 */
 
 rootProject.name = 'abstract-dashboard'
-include "core", "wpi", "advanced"
+include "core", "wpi"

@@ -57,15 +57,9 @@ project(":core"){
     dependencies {
     }
 }
-project(":advanced"){
-    dependencies {
-        api project(":core")
-    }
-}
 project(":wpi"){
     dependencies {
         api project(":core")
-        api project(":advanced")
     }
 }
 wrapper {
