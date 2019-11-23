@@ -5,7 +5,7 @@ class SimpleMappedChooserProvider<T>(
 ) : MutableMappedChooserProvider<T> {
     private val stateLock: Any = Object()
     private val chooserProvider = SimpleChooserProvider(listener)
-    private val map = HashMap<String, T>()
+    private var map = HashMap<String, T>()
 
     override fun addOption(key: String, value: T, makeDefault: Boolean) {
         synchronized(stateLock){
@@ -26,6 +26,7 @@ class SimpleMappedChooserProvider<T>(
     override fun set(map: Map<String, T>, defaultKey: String) {
         synchronized(stateLock){
             chooserProvider.setKeys(map.keys, defaultKey)
+            this.map = LinkedHashMap(map)
         }
     }
 
