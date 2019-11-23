@@ -15,7 +15,7 @@ class DefaultShuffleboardContainer(
         private val metadataDashboard: BasicDashboard
 ) : ActiveShuffleboardContainer {
     private var removed = false
-    private val componentMap = HashMap<String, ActiveComponent>()
+    private val componentMap = LinkedHashMap<String, ActiveComponent>()
 
     override val components: Collection<ActiveComponent>
         get() = componentMap.values

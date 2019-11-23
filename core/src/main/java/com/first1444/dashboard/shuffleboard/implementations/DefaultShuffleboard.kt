@@ -15,6 +15,7 @@ class DefaultShuffleboard(
     private val dashboard = rootDashboard.getSubDashboard("/Shuffleboard")
     private val metadata = dashboard.getSubDashboard(".metadata")
     private val tabSelectEntry = metadata["Selected"]
+    private val tabsEntry = metadata["Tabs"]
 
     override val recordingController: RecordingController = DefaultRecordingController(rootDashboard)
 
@@ -32,7 +33,13 @@ class DefaultShuffleboard(
     }
 
     override fun get(title: String): ShuffleboardContainer {
-        return container.addOrGet(title, ShuffleboardTabComponent)
+        val r = container.getOrNull(title, ShuffleboardTabComponent)
+        if(r != null){
+            return r
+        }
+        val newTab = container.add(title, ShuffleboardTabComponent)
+        updateTabsEntry()
+        return newTab
     }
 
     override fun update() {
@@ -41,6 +48,10 @@ class DefaultShuffleboard(
 
     override fun onRemove() {
         container.onRemove()
+    }
+
+    private fun updateTabsEntry(){
+        tabsEntry.strictSetter.setStringArray(container.components.map { it.title }.toTypedArray())
     }
 
 }
