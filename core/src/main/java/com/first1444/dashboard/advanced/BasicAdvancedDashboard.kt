@@ -7,22 +7,29 @@ class BasicAdvancedDashboard(
         override val title: String,
         private val basicDashboard: BasicDashboard
 ) : ActiveAdvancedDashboard {
+
+    private val componentMap = HashMap<String, ActiveComponent>()
     override fun <T : ActiveComponent> add(key: String, data: Sendable<T>): T {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        check(key !in componentMap) { "key=$key is already present!" }
+
+        val r = data.init(key, basicDashboard.getSubDashboard(key))
+        componentMap[key] = r
+        return r
+    }
+    override fun delete(key: String): Boolean {
+        return componentMap.remove(key) != null
     }
 
     override fun update() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        for(component in componentMap.values){
+            component.update()
+        }
     }
 
     override fun onRemove() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        for(component in componentMap.values){
+            component.onRemove()
+        }
     }
-
-    override fun delete(key: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-
 
 }

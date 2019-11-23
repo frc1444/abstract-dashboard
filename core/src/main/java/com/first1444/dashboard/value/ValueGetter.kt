@@ -1,7 +1,7 @@
 package com.first1444.dashboard.value
 
 interface ValueGetter {
-    val value: BasicValue
+    val value: BasicValue?
 
     fun getBoolean(defaultValue: Boolean): Boolean
 

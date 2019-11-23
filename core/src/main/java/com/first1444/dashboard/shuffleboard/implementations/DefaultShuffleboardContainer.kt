@@ -6,6 +6,7 @@ import com.first1444.dashboard.advanced.AdvancedDashboard
 import com.first1444.dashboard.advanced.Sendable
 import com.first1444.dashboard.shuffleboard.ActiveShuffleboardContainer
 import com.first1444.dashboard.shuffleboard.MetadataEditor
+import com.first1444.dashboard.shuffleboard.SendableComponent
 import com.first1444.dashboard.shuffleboard.ShuffleboardComponent
 
 class DefaultShuffleboardContainer(
@@ -23,12 +24,13 @@ class DefaultShuffleboardContainer(
         get() = dashboard
 
     override val advancedDashboard: AdvancedDashboard = object : AdvancedDashboard {
-        override fun delete(key: String) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        override fun delete(key: String): Boolean {
+            return remove(key)
         }
 
         override fun <T : ActiveComponent> add(key: String, data: Sendable<T>): T {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            val component = SendableComponent(data)
+            return component.init(key, dashboard, metadataDashboard)
         }
 
     }

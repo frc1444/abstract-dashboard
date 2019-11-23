@@ -2,8 +2,8 @@ package com.first1444.dashboard.value
 
 
 class BasicValue(
-        private val type: BasicValueType,
-        private val value: Any
+        val type: BasicValueType,
+        val value: Any
 ) {
 
     override fun equals(other: Any?): Boolean {

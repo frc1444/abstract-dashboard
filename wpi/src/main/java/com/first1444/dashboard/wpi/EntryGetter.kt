@@ -9,20 +9,9 @@ import edu.wpi.first.networktables.NetworkTableType
 class EntryGetter(
         private val entry: NetworkTableEntry
 ) : ValueGetter {
-    override val value: BasicValue
+    override val value: BasicValue?
         get() {
-            val value = entry.value
-            return BasicValue(when (value.type ?: error("The type cannot be null!")) {
-                NetworkTableType.kUnassigned -> error("Unassigned type for value: ${value.value}")
-                NetworkTableType.kBoolean -> BasicValueType.BOOLEAN
-                NetworkTableType.kDouble -> BasicValueType.DOUBLE
-                NetworkTableType.kString -> BasicValueType.STRING
-                NetworkTableType.kRaw -> BasicValueType.RAW
-                NetworkTableType.kBooleanArray -> BasicValueType.BOOLEAN_ARRAY
-                NetworkTableType.kDoubleArray -> BasicValueType.DOUBLE_ARRAY
-                NetworkTableType.kStringArray -> BasicValueType.STRING_ARRAY
-                NetworkTableType.kRpc -> throw NotImplementedError("RPC is not supported yet!")
-            }, value.value)
+            return entry.value.asBasicValue
         }
 
     override fun getBoolean(defaultValue: Boolean): Boolean = entry.getBoolean(defaultValue)
