@@ -67,7 +67,7 @@ class BasicValue(
         @JvmStatic
         fun makeDoubleArray(value: DoubleArray) = BasicValue(BasicValueType.DOUBLE_ARRAY, value)
         @JvmStatic
-        fun makeStringArray(value: Array<String>) = BasicValue(BasicValueType.STRING, value)
+        fun makeStringArray(value: Array<String>) = BasicValue(BasicValueType.STRING_ARRAY, value)
     }
 
 }
