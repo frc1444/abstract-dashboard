@@ -2,10 +2,10 @@ package com.first1444.dashboard.wpi
 
 import com.first1444.dashboard.BasicDashboard
 import com.first1444.dashboard.value.BasicEntry
-import edu.wpi.first.networktables.NetworkTable
+import edu.wpi.first.networktables.NetworkTableInstance
 
-class NetworkTableBasicDashboard(
-        private val networkTable: NetworkTable
+class NetworkTableInstanceBasicDashboard(
+    private val networkTableInstance: NetworkTableInstance
 ) : BasicDashboard {
 
     private val tableCache = HashMap<String, BasicDashboard>()
@@ -13,18 +13,17 @@ class NetworkTableBasicDashboard(
 
     override fun getSubDashboard(key: String): BasicDashboard {
         return tableCache.getOrPut(key) {
-            NetworkTableBasicDashboard(networkTable.getSubTable(key))
+            NetworkTableBasicDashboard(networkTableInstance.getTable(key))
         }
     }
 
     override fun delete(key: String) {
-        networkTable.delete(key)
+        networkTableInstance.getEntry(key).delete()
     }
 
     override fun get(key: String): BasicEntry {
         return entryCache.getOrPut(key) {
-            NetworkTableBasicEntry(networkTable.getEntry(key))
+            NetworkTableBasicEntry(networkTableInstance.getEntry(key))
         }
     }
-
 }

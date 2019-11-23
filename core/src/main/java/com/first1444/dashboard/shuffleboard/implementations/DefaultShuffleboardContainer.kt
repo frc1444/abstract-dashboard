@@ -27,11 +27,7 @@ class DefaultShuffleboardContainer(
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
-        override fun add(key: String, data: Sendable) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
-        override fun get(key: String): Sendable {
+        override fun <T : ActiveComponent> add(key: String, data: Sendable<T>): T {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
