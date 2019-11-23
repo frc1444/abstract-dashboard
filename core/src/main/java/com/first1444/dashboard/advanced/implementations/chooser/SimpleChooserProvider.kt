@@ -1,7 +1,7 @@
 package com.first1444.dashboard.advanced.implementations.chooser
 
 class SimpleChooserProvider(
-        private val listener: ChooserListener
+        private val listener: ChooserListener = ChooserListener.IGNORE
 ) : MutableChooserProvider {
     private val stateLock = Object()
     private val _keys = LinkedHashSet<String>()

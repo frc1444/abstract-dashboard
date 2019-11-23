@@ -1,7 +1,7 @@
 package com.first1444.dashboard.advanced.implementations.chooser
 
 class SimpleMappedChooserProvider<T>(
-        listener: ChooserListener
+        listener: ChooserListener = ChooserListener.IGNORE
 ) : MutableMappedChooserProvider<T> {
     private val stateLock: Any = Object()
     private val chooserProvider = SimpleChooserProvider(listener)
