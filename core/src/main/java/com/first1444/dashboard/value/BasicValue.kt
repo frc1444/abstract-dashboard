@@ -5,9 +5,6 @@ class BasicValue(
         private val type: BasicValueType,
         private val value: Any
 ) {
-    @get:JvmName("getTheHi")
-    val hi: Int
-        get() = 3
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -49,6 +46,28 @@ class BasicValue(
             }
             BasicValueType.STRING_ARRAY -> setter.setStringArray(value as Array<String>)
         }
+    }
+
+    companion object {
+        @JvmField
+        val TRUE = makeBoolean(true)
+        @JvmField
+        val FALSE = makeBoolean(false)
+
+        @JvmStatic
+        fun makeBoolean(value: Boolean) = BasicValue(BasicValueType.BOOLEAN, value)
+        @JvmStatic
+        fun makeDouble(value: Double) = BasicValue(BasicValueType.DOUBLE, value)
+        @JvmStatic
+        fun makeString(value: String) = BasicValue(BasicValueType.STRING, value)
+        @JvmStatic
+        fun makeRaw(value: ByteArray) = BasicValue(BasicValueType.RAW, value)
+        @JvmStatic
+        fun makeBooleanArray(value: BooleanArray) = BasicValue(BasicValueType.BOOLEAN_ARRAY, value)
+        @JvmStatic
+        fun makeDoubleArray(value: DoubleArray) = BasicValue(BasicValueType.DOUBLE_ARRAY, value)
+        @JvmStatic
+        fun makeStringArray(value: Array<String>) = BasicValue(BasicValueType.STRING, value)
     }
 
 }

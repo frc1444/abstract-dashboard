@@ -2,12 +2,13 @@ package com.first1444.dashboard.shuffleboard.implementations
 
 import com.first1444.dashboard.BasicDashboard
 import com.first1444.dashboard.shuffleboard.ActiveShuffleboard
-import com.first1444.dashboard.shuffleboard.ActiveShuffleboardContainer
 import com.first1444.dashboard.shuffleboard.RecordingController
+import com.first1444.dashboard.shuffleboard.ShuffleboardContainer
 
 class DefaultShuffleboard(
         rootDashboard: BasicDashboard
 ) : ActiveShuffleboard {
+
     override val title: String = "Shuffleboard"
 
 
@@ -19,12 +20,19 @@ class DefaultShuffleboard(
 
     private val container = DefaultShuffleboardContainer(title, dashboard, metadata)
 
+    override val rawContainer: ShuffleboardContainer
+        get() = container
+
     override fun selectTab(index: Int) {
         tabSelectEntry.forceSetter.setDouble(index.toDouble())
     }
 
     override fun selectTab(title: String) {
         tabSelectEntry.forceSetter.setString(title)
+    }
+
+    override fun get(title: String): ShuffleboardContainer {
+        return container.addOrGet(title, ShuffleboardTabComponent)
     }
 
     override fun update() {

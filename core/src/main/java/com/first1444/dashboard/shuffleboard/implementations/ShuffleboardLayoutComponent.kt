@@ -2,9 +2,11 @@ package com.first1444.dashboard.shuffleboard.implementations
 
 import com.first1444.dashboard.ActiveComponent
 import com.first1444.dashboard.BasicDashboard
+import com.first1444.dashboard.advanced.SendableHelper
 import com.first1444.dashboard.shuffleboard.ActiveShuffleboardContainer
 import com.first1444.dashboard.shuffleboard.ComponentMetadataHelper
 import com.first1444.dashboard.shuffleboard.ShuffleboardComponent
+import com.first1444.dashboard.shuffleboard.types.BuiltInLayouts
 import com.first1444.dashboard.shuffleboard.types.LayoutType
 
 /**
@@ -18,10 +20,17 @@ class ShuffleboardLayoutComponent(
 
     override fun init(title: String, parentDashboard: BasicDashboard, metadataDashboard: BasicDashboard): ActiveShuffleboardContainer {
         val dashboard = parentDashboard.getSubDashboard(title)
+        SendableHelper(dashboard)
+                .setDashboardType("ShuffleboardLayout")
         ComponentMetadataHelper(metadataDashboard)
-                .setType("ShuffleboardLayout")
                 .setPreferredComponent(layoutName)
 
         return DefaultShuffleboardContainer(title, dashboard, metadataDashboard)
+    }
+    companion object {
+        @JvmField
+        val LIST = ShuffleboardLayoutComponent(BuiltInLayouts.LIST)
+        @JvmField
+        val GRID = ShuffleboardLayoutComponent(BuiltInLayouts.GRID)
     }
 }

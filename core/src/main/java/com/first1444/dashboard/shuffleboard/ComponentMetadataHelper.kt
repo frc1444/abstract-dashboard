@@ -9,21 +9,9 @@ import com.first1444.dashboard.value.BasicValue
 class ComponentMetadataHelper(
         private val metadataDashboard: BasicDashboard
 ) {
-    fun setName(name: String): ComponentMetadataHelper {
-        metadataDashboard[".name"].strictSetter.setString(name)
-        return this
-    }
 
     /**
-     * Sets the shuffleboard type
-     */
-    fun setType(type: String): ComponentMetadataHelper {
-        metadataDashboard[".type"].strictSetter.setString(type)
-        return this
-    }
-
-    /**
-     * Sets the preferred type. AKA the SmartDashboard type
+     * Sets the preferred type.
      */
     fun setPreferredComponent(type: String): ComponentMetadataHelper {
         metadataDashboard["PreferredComponent"].strictSetter.setString(type)

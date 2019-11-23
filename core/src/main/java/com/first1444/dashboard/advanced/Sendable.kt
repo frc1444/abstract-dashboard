@@ -4,5 +4,10 @@ import com.first1444.dashboard.ActiveComponent
 import com.first1444.dashboard.BasicDashboard
 
 interface Sendable {
-    fun init(dashboard: BasicDashboard): ActiveComponent
+    /**
+     * @param title The title. [ActiveComponent.title] should be set to this
+     * @param dashboard The dashboard to apply properties to
+     * @return An [ActiveComponent] that will be updated and eventually removed
+     */
+    fun init(title: String, dashboard: BasicDashboard): ActiveComponent
 }

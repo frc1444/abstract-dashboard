@@ -2,6 +2,8 @@ package com.first1444.dashboard.shuffleboard.implementations
 
 import com.first1444.dashboard.ActiveComponent
 import com.first1444.dashboard.BasicDashboard
+import com.first1444.dashboard.advanced.AdvancedDashboard
+import com.first1444.dashboard.advanced.Sendable
 import com.first1444.dashboard.shuffleboard.ActiveShuffleboardContainer
 import com.first1444.dashboard.shuffleboard.MetadataEditor
 import com.first1444.dashboard.shuffleboard.ShuffleboardComponent
@@ -13,8 +15,27 @@ class DefaultShuffleboardContainer(
 ) : ActiveShuffleboardContainer {
     private var removed = false
     private val componentMap = HashMap<String, ActiveComponent>()
+
     override val components: Collection<ActiveComponent>
         get() = componentMap.values
+
+    override val rawDashboard: BasicDashboard
+        get() = dashboard
+
+    override val advancedDashboard: AdvancedDashboard = object : AdvancedDashboard {
+        override fun delete(key: String) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun add(key: String, data: Sendable) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun get(key: String): Sendable {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+    }
 
 
     private fun checkRemoved(){
@@ -33,7 +54,7 @@ class DefaultShuffleboardContainer(
         checkRemoved()
         val iterator = componentMap.iterator()
         while(iterator.hasNext()){
-            val (title, iteratorComponent) = iterator.next()
+            val (_, iteratorComponent) = iterator.next()
             if(iteratorComponent == component){
                 iteratorComponent.onRemove()
                 iterator.remove()
@@ -59,12 +80,33 @@ class DefaultShuffleboardContainer(
     }
 
 
-    override fun <T : ActiveComponent>addComponent(title: String, component: ShuffleboardComponent<T>, metadataEditor: MetadataEditor): T {
+    override fun <T : ActiveComponent>add(title: String, component: ShuffleboardComponent<T>, metadataEditor: MetadataEditor): T {
         checkRemoved()
+        check(title !in componentMap) { "$title is already present!" }
+
         val componentMetadata = metadataDashboard.getSubDashboard(title)
         val r = component.init(title, dashboard, componentMetadata)
         componentMap[title] = r
         return r
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ActiveComponent> addOrGet(title: String, component: ShuffleboardComponent<T>, metadataEditor: MetadataEditor): T {
+        checkRemoved()
+        if(title in componentMap) {
+            return componentMap[title] as T
+        }
+        return add(title, component, metadataEditor)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ActiveComponent> get(title: String): T {
+        return componentMap[title] as T
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ActiveComponent> getOrNull(title: String): T? {
+        return componentMap[title] as T?
     }
 
 }
