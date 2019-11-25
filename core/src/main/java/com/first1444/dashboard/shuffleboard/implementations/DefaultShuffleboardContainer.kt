@@ -83,6 +83,7 @@ class DefaultShuffleboardContainer(
         check(title !in componentMap) { "$title is already present!" }
 
         val componentMetadata = metadataDashboard.getSubDashboard(title)
+        metadataEditor.editMetadata(componentMetadata)
         val r = component.init(title, dashboard, componentMetadata)
         componentMap[title] = r
         return r
