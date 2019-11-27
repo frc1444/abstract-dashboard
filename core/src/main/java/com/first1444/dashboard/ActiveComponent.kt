@@ -15,5 +15,21 @@ interface ActiveComponent {
             override fun onRemove() {
             }
         }
+        @JvmStatic
+        fun create(title: String, update: Runnable): ActiveComponent {
+            return object : ActiveComponent {
+                override val title: String = title
+
+                override fun update() {
+                    update.run()
+                }
+                override fun onRemove() {
+                }
+            }
+        }
+        @JvmSynthetic
+        fun create(title: String, update: () -> Unit): ActiveComponent {
+            return create(title, Runnable(update))
+        }
     }
 }

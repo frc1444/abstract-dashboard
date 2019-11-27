@@ -43,6 +43,11 @@ open class SendableHelper(
         get() = dashboard[".controllable"].getter.getBoolean(false)
         set(value) { dashboard[".controllable"].strictSetter.setBoolean(value) }
 
+    /**
+     * This is primarily used for actuators. It is not clearly defined what Shuffleboard, SmartDashboard, or LiveWindow components use this but it is
+     * not necessary to set this for every component. The general rule is that if it's an actuator, set this to true when it can be controlled, set it to false
+     * when you stop checking for new control input.
+     */
     fun setControllable(value: Boolean): SendableHelper {
         isControllable = value
         return this

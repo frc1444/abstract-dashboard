@@ -28,9 +28,12 @@ class DefaultShuffleboardContainer(
             return remove(key)
         }
 
+        override fun delete(activeComponent: ActiveComponent): Boolean {
+            return remove(activeComponent)
+        }
+
         override fun <T : ActiveComponent> add(key: String, data: Sendable<T>): T {
-            val component = SendableComponent(data)
-            return component.init(key, dashboard, metadataDashboard)
+            return add(key, SendableComponent(data))
         }
 
     }

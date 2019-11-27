@@ -20,6 +20,20 @@ class BasicAdvancedDashboard(
         return componentMap.remove(key) != null
     }
 
+    override fun delete(activeComponent: ActiveComponent): Boolean {
+        val iterator = componentMap.iterator()
+        while(iterator.hasNext()){
+            val (name, component) = iterator.next()
+            if(component == activeComponent){
+                basicDashboard.delete(name)
+                activeComponent.onRemove()
+                iterator.remove()
+                return true
+            }
+        }
+        return false
+    }
+
     override fun update() {
         for(component in componentMap.values){
             component.update()
