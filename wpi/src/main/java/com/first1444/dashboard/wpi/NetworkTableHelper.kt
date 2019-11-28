@@ -12,7 +12,7 @@ val NetworkTableValue.asBasicValue: BasicValue?
             return null
         }
         return BasicValue(when (type) {
-            NetworkTableType.kUnassigned -> throw AssertionError()
+            NetworkTableType.kUnassigned -> throw AssertionError("We just checked this above!")
             NetworkTableType.kBoolean -> BasicValueType.BOOLEAN
             NetworkTableType.kDouble -> BasicValueType.DOUBLE
             NetworkTableType.kString -> BasicValueType.STRING

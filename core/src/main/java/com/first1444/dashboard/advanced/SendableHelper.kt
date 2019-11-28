@@ -19,12 +19,12 @@ open class SendableHelper(
      * Sets the dashboard type. AKA the SmartDashboard type
      */
     @set:JvmSynthetic
-    var dashboardType: String
+    var type: String
         get() = dashboard[".type"].getter.getString("")
         set(value) { dashboard[".type"].strictSetter.setString(value) }
 
-    fun setDashboardType(value: String): SendableHelper {
-        dashboardType = value
+    fun setType(value: String): SendableHelper {
+        type = value
         return this
     }
 

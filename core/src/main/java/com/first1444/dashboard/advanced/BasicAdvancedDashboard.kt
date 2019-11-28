@@ -25,9 +25,9 @@ class BasicAdvancedDashboard(
         while(iterator.hasNext()){
             val (name, component) = iterator.next()
             if(component == activeComponent){
-                basicDashboard.delete(name)
                 activeComponent.onRemove()
-                iterator.remove()
+                basicDashboard.delete(name) // deletes the dashboard that activeComponent was using
+                iterator.remove() // removes from componentMap
                 return true
             }
         }

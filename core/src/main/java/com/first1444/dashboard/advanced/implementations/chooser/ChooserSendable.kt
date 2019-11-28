@@ -34,7 +34,7 @@ constructor(
 
     override fun init(title: String, dashboard: BasicDashboard): ActiveComponent {
         SendableHelper(dashboard)
-                .setDashboardType("String Chooser")
+                .setType("String Chooser")
         dashboard[INSTANCE].strictSetter.setDouble(instanceNumber.toDouble())
 
         return ActiveComponentMultiplexer(title, listOf(

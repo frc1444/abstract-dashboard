@@ -16,7 +16,7 @@ class PropertyActiveComponent(
 
     private val listener: EntryListener? = if(property.supportsSetting){
         EntryListener {
-            property.setValue(it.value!!) // TODO think about handling nulls
+            property.setValue(it.value!!) // value shouldn't be null because we don't expect the property to be removed // We may change this in the future
         }
     } else null
 

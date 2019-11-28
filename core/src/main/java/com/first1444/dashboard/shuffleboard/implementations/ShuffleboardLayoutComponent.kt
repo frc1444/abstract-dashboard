@@ -21,7 +21,7 @@ class ShuffleboardLayoutComponent(
     override fun init(title: String, parentDashboard: BasicDashboard, metadataDashboard: BasicDashboard): ActiveShuffleboardContainer {
         val dashboard = parentDashboard.getSubDashboard(title)
         SendableHelper(dashboard)
-                .setDashboardType("ShuffleboardLayout")
+                .setType("ShuffleboardLayout")
         ComponentMetadataHelper(metadataDashboard)
                 .setPreferredComponent(layoutName)
 

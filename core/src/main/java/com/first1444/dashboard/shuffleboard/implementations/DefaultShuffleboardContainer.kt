@@ -45,26 +45,16 @@ class DefaultShuffleboardContainer(
 
     override fun remove(title: String): Boolean {
         checkRemoved()
-        val component = componentMap[title] ?: return false
+        val component = componentMap.remove(title) ?: return false
         component.onRemove()
-        componentMap.remove(title)
+        dashboard.delete(title) // may be removing an entry or removes a sub dashboard
+        metadataDashboard.delete(title) // removes the sub dashboard that contains the metadata
         return true
     }
 
     override fun remove(component: ActiveComponent): Boolean {
-        checkRemoved()
-        val iterator = componentMap.iterator()
-        while(iterator.hasNext()){
-            val (_, iteratorComponent) = iterator.next()
-            if(iteratorComponent == component){
-                iteratorComponent.onRemove()
-                iterator.remove()
-                return true
-            }
-        }
-        return false
+        return remove(component.title)
     }
-
 
     override fun update() {
         checkRemoved()
@@ -88,6 +78,7 @@ class DefaultShuffleboardContainer(
         val componentMetadata = metadataDashboard.getSubDashboard(title)
         metadataEditor.editMetadata(componentMetadata)
         val r = component.init(title, dashboard, componentMetadata)
+        check(r.title == title) { "The title of the ActiveComponent must be the same as the passed title!" }
         componentMap[title] = r
         return r
     }
