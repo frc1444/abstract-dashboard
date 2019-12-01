@@ -5,7 +5,7 @@ interface EntryListener {
 
     companion object {
         @JvmSynthetic
-        operator fun invoke(lambda: (EntryNotification) -> Unit) = object : EntryListener {
+        inline operator fun invoke(crossinline lambda: (EntryNotification) -> Unit) = object : EntryListener {
             override fun onNotification(notification: EntryNotification) = lambda(notification)
         }
     }

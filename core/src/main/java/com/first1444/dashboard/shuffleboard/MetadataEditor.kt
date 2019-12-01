@@ -9,10 +9,9 @@ interface MetadataEditor {
         @JvmField
         val NOTHING = MetadataEditor {}
 
-        operator fun invoke(lambda: (metadataDashboard: BasicDashboard) -> Unit) = object : MetadataEditor {
-            override fun editMetadata(metadataDashboard: BasicDashboard) {
-                lambda(metadataDashboard)
-            }
+        @JvmSynthetic
+        inline operator fun invoke(crossinline lambda: (metadataDashboard: BasicDashboard) -> Unit) = object : MetadataEditor {
+            override fun editMetadata(metadataDashboard: BasicDashboard) = lambda(metadataDashboard)
         }
     }
 }

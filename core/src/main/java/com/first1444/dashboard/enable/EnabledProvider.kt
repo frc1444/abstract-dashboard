@@ -5,7 +5,7 @@ interface EnabledProvider {
 
     companion object {
         @JvmSynthetic
-        operator fun invoke(lambda: () -> Boolean) = object : EnabledProvider {
+        inline operator fun invoke(crossinline lambda: () -> Boolean) = object : EnabledProvider {
             override val isEnabled: Boolean
                 get() = lambda()
         }

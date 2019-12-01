@@ -7,10 +7,8 @@ interface ChooserListener {
         val IGNORE = ChooserListener {}
 
         @JvmSynthetic
-        operator fun invoke(lambda: (String) -> Unit) = object : ChooserListener {
-            override fun onKeyChange(key: String) {
-                lambda(key)
-            }
+        inline operator fun invoke(crossinline lambda: (String) -> Unit) = object : ChooserListener {
+            override fun onKeyChange(key: String) = lambda(key)
         }
     }
 }

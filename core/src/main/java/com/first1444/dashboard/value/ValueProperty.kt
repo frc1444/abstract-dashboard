@@ -7,9 +7,17 @@ interface ValueProperty {
     fun setValue(value: BasicValue)
     val supportsSetting: Boolean
 
+    @FunctionalInterface
+    interface Getter {
+        fun get(): BasicValue
+    }
+    @FunctionalInterface
+    interface Setter {
+        fun set(value: BasicValue)
+    }
     companion object {
-        @JvmStatic
-        fun createGetOnly(getter: () -> BasicValue) = object : ValueProperty {
+        @JvmSynthetic
+        inline fun createGetOnly(crossinline getter: () -> BasicValue) = object : ValueProperty {
             override fun getValue(): BasicValue = getter()
             override val supportsGetting: Boolean = true
 
@@ -20,7 +28,9 @@ interface ValueProperty {
 
         }
         @JvmStatic
-        fun createSetOnly(setter: (BasicValue) -> Unit) = object : ValueProperty {
+        fun createGetOnly(getter: Getter) = createGetOnly(getter::get)
+        @JvmSynthetic
+        inline fun createSetOnly(crossinline setter: (BasicValue) -> Unit) = object : ValueProperty {
             override fun getValue(): BasicValue {
                 throw UnsupportedOperationException()
             }
@@ -32,14 +42,17 @@ interface ValueProperty {
             override val supportsSetting: Boolean = true
         }
         @JvmStatic
-        fun create(getter: () -> BasicValue, setter: (BasicValue) -> Unit) = object : ValueProperty {
+        fun createSetOnly(setter: Setter) = createSetOnly(setter::set)
+        @JvmSynthetic
+        inline fun create(crossinline getter: () -> BasicValue, crossinline setter: (BasicValue) -> Unit) = object : ValueProperty {
             override fun getValue(): BasicValue = getter()
             override val supportsGetting: Boolean = true
             override fun setValue(value: BasicValue) {
                 setter(value)
             }
             override val supportsSetting: Boolean = true
-
         }
+        @JvmStatic
+        fun create(getter: Getter, setter: Setter) = create(getter::get, setter::set)
     }
 }
